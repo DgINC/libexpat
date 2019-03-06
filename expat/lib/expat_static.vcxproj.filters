@@ -9,6 +9,9 @@
       <UniqueIdentifier>{f1cd6f85-7111-4c1b-abad-37c79851ca34}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{476b44fb-df88-4654-94b6-005e9b4dd39c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="loadlibrary.c">
