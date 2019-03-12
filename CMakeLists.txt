@@ -32,23 +32,22 @@ cmake_minimum_required(VERSION 3.10.3)
 
 project("libexpat" C)
 
-set(PACKAGE_BUGREPORT "expat-bugs@libexpat.org")
-set(PACKAGE_NAME "libexpat")
-set(PACKAGE_VERSION "2.2.6")
-set(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
-set(PACKAGE_TARNAME "${PACKAGE_NAME}")
+set(LIBEXPAT_VERSION_MAJOR "2")
+set(LIBEXPAT_VERSION_MINOR "2")
+set(LIBEXPAT_VERSION_PATCH "6")
+set(LIBEXPAT_VERSION ${LIBEXPAT_VERSION_MAJOR}.${LIBEXPAT_VERSION_MINOR}.${LIBEXPAT_VERSION_PATCH})
 
 include(GNUInstallDirs)
 
 option(BUILD_TOOLS "build the xmlwf tool for expat library" ON)
 option(BUILD_TEST "build the tests for expat library" ON)
-option(BUILD_shared "build a shared expat library" ON)
+option(BUILD_SHARED "build a shared expat library" ON)
 option(INSTALL "install expat files in cmake install target" ON)
 
 #
 #  DOCUMENTATION
 #
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/docs)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen/)
 
 
 if(UNIX AND NOT APPLE)
@@ -170,29 +169,24 @@ set(libexpat_SRCS
     src/libexpat/xmltok_ns.c
 )
 
-if(BUILD_shared)
+if(BUILD_SHARED)
     set(_SHARED SHARED)
     if(WIN32)
         set(libexpat_SRCS ${libexpat_SRCS} tools/platform/win/libexpat.def)
     endif(WIN32)
-else(BUILD_shared)
+else(BUILD_SHARED)
     set(_SHARED STATIC)
     if(WIN32)
         add_definitions(-DXML_STATIC)
     endif(WIN32)
-endif(BUILD_shared)
+endif(BUILD_SHARED)
 
 add_library(libexpat ${_SHARED} ${libexpat_SRCS})
 
 
-set(LIBCURRENT 7)   # sync
-set(LIBREVISION 8)  # with
-set(LIBAGE 6)       # configure.ac!
-math(EXPR LIBCURRENT_MINUS_AGE "${LIBCURRENT} - ${LIBAGE}")
-
 if(NOT WIN32)
-    set_property(TARGET libexpat PROPERTY VERSION ${LIBCURRENT_MINUS_AGE}.${LIBAGE}.${LIBREVISION})
-    set_property(TARGET libexpat PROPERTY SOVERSION ${LIBCURRENT_MINUS_AGE})
+    set_property(TARGET libexpat PROPERTY VERSION ${LIBEXPAT_VERSION})
+    set_property(TARGET libexpat PROPERTY SOVERSION ${LIBEXPAT_VERSION_MAJOR})
     set_property(TARGET libexpat PROPERTY NO_SONAME ${NO_SONAME})
 endif(NOT WIN32)
 
@@ -211,6 +205,8 @@ set(exec_prefix "\${prefix}")
 set(libdir "\${exec_prefix}/${CMAKE_INSTALL_LIBDIR}")
 set(includedir "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
 configure_file(libexpat.pc.in ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc @ONLY)
+
+configure_file("${PROJECT_SOURCE_DIR}/libexpat_config.h.in" "${PROJECT_BINARY_DIR}/libexpat_config.h")
 
 expat_install(FILES src/libexpat/expat.h src/libexpat/expat_external.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 expat_install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)

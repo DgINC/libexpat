@@ -86,7 +86,10 @@ else(WORDS_BIGENDIAN)
     set(BYTEORDER 1234)
 endif(WORDS_BIGENDIAN)
 
-configure_file(expat_config.h.cmake "${CMAKE_CURRENT_BINARY_DIR}/expat_config.h")
+#
+# FIXME: Rename expat_config.h to libexpat_config.h
+#
+configure_file(libexpat_config.h.in "${CMAKE_CURRENT_BINARY_DIR}/expat_config.h")
 add_definitions(-DHAVE_EXPAT_CONFIG_H)
 
 check_c_compiler_flag("-fno-strict-aliasing" FLAG_NO_STRICT_ALIASING)

@@ -4,7 +4,7 @@ libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: libexpat
-Version: 2.2.6
+Version: 
 Description: libexpat XML parser
 URL: http://www.libexpat.org
 Libs: -L${libdir} -lexpat
