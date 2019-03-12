@@ -147,7 +147,7 @@ _deps
 ## GITURL:https://github.com/krf/kdevelop/blob/master/.gitignore
 
 apidocs
-.kdev4
+*.kdev4
 build
 *~
 *.orig
@@ -160,6 +160,7 @@ Doxyfile
 *.kdevses
 .*kate-swp
 build/
+.kdev4/
 
 ###########################################################################
 #                   Git ignoring list for MS Visual Studio                #
