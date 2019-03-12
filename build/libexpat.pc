@@ -1,0 +1,11 @@
+prefix=C:/Program Files (x86)/libexpat
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libexpat
+Version: 2.2.6
+Description: libexpat XML parser
+URL: http://www.libexpat.org
+Libs: -L${libdir} -lexpat
+Cflags: -I${includedir}

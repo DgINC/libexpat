@@ -137,3 +137,22 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+
+###########################################################################
+#                   Git ignoring list for KDevelop                        #
+###########################################################################
+
+apidocs
+.kdev4
+build
+*~
+*.orig
+*.rej
+doxygen.log
+Doxyfile
+*.kdevelop
+*.kdevelop.filelist
+*.kdevelop.pcs
+*.kdevses
+.*kate-swp
+build/

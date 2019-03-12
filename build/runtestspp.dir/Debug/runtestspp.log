@@ -1,0 +1,9 @@
+﻿  Building Custom Rule D:/Cloud/Projects/Software/libexpat/CMakeLists.txt
+  CMake does not need to re-run because D:/Cloud/Projects/Software/libexpat/build/CMakeFiles/generate.stamp is up-to-date.
+  chardata.c
+  structdata.c
+  minicheck.c
+  memcheck.c
+  Создание кода...
+MSVCRTD.lib(exe_main.obj) : error LNK2019: ссылка на неразрешенный внешний символ _main в функции "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+D:\Cloud\Projects\Software\libexpat\build\tests\Debug\runtestspp.exe : fatal error LNK1120: неразрешенных внешних элементов: 1
