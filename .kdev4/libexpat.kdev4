@@ -8,7 +8,7 @@ Current Build Directory Index-Host System=0
 [CMake][CMake Build Directory 0]
 Build Directory Path=D:/Cloud/Projects/Software/libexpat/build
 Build Type=Debug
-CMake Binary=
+CMake Binary=C:/Program Files/CMake/bin/cmake.exe
 CMake Executable=C:/Program Files/CMake/bin/cmake.exe
 Environment Profile=
 Extra Arguments=
