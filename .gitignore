@@ -146,9 +146,9 @@ _deps
 ###########################################################################
 ## GITURL:https://github.com/krf/kdevelop/blob/master/.gitignore
 
-apidocs
+apidocs/
 *.kdev4
-build
+build/
 *~
 *.orig
 *.rej
@@ -506,3 +506,4 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+
