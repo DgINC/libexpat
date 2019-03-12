@@ -1,9 +1,0 @@
-﻿  Building Custom Rule D:/Cloud/Projects/Software/libexpat/CMakeLists.txt
-  CMake does not need to re-run because D:/Cloud/Projects/Software/libexpat/build/CMakeFiles/generate.stamp is up-to-date.
-  runtests.c
-  chardata.c
-  structdata.c
-  minicheck.c
-  memcheck.c
-  Создание кода...
-  runtests.vcxproj -> D:\Cloud\Projects\Software\libexpat\build\tests\Debug\runtests.exe

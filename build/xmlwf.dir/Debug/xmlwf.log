@@ -1,8 +1,0 @@
-﻿  Building Custom Rule D:/Cloud/Projects/Software/libexpat/CMakeLists.txt
-  CMake does not need to re-run because D:/Cloud/Projects/Software/libexpat/build/CMakeFiles/generate.stamp is up-to-date.
-  xmlwf.c
-  xmlfile.c
-  codepage.c
-  readfilemap.c
-  Создание кода...
-  xmlwf.vcxproj -> D:\Cloud\Projects\Software\libexpat\build\xmlwf\Debug\xmlwf.exe

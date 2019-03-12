@@ -28,5 +28,5 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 # USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-OUTPUT_DIRECTORY       = D:/Cloud/Projects/Software/libexpat/build/docs/doc_doxygen/
-INPUT                  = D:/Cloud/Projects/Software/libexpat/docs/src/lib D:/Cloud/Projects/Software/libexpat/docs/docs
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/doc_doxygen/
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/src/libexpat @CMAKE_CURRENT_SOURCE_DIR@/docs/doxygen
