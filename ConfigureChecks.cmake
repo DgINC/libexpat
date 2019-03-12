@@ -26,7 +26,7 @@ if(UNIX AND NOT APPLE)
         set(CMAKE_REQUIRED_LIBRARIES "${LIB_BSD}")
         set(_bsd "bsd/")
     else()
-        message(FATAL_ERROR "USE_LIBSD option is enabled, but libbsd was not found")
+        set(_bsd "")
     endif()
     
     if(HAVE_SYS_TYPES_H)
