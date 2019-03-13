@@ -35,7 +35,7 @@
 #endif
 
 #ifdef HAVE_EXPAT_CONFIG_H
-# include <expat_config.h>
+# include <config.h>
 #endif
 
 #include <assert.h>

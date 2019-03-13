@@ -39,7 +39,7 @@
 #ifdef _WIN32
 #include "winconfig.h"
 #elif defined(HAVE_EXPAT_CONFIG_H)
-#include <expat_config.h>
+#include <config.h>
 #endif /* ndef _WIN32 */
 
 #include "expat.h"

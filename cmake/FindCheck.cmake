@@ -1,21 +1,34 @@
-# - Try to find the CHECK libraries
-#  Once done this will define
 #
-#  CHECK_FOUND - system has check
-#  CHECK_INCLUDE_DIR - the check include directory
-#  CHECK_LIBRARIES - check library
+#                          __  __            _
+#                       ___\ \/ /_ __   __ _| |_
+#                      / _ \\  /| '_ \ / _` | __|
+#                     |  __//  \| |_) | (_| | |_
+#                      \___/_/\_\ .__/ \__,_|\__|
+#                               |_| XML parser
 #
-#  This configuration file for finding libcheck is originally from
-#  the opensync project. The originally was downloaded from here:
-#  opensync.org/browser/branches/3rd-party-cmake-modules/modules/FindCheck.cmake
+# Copyright (c) 2017 Expat development team
+# Licensed under the MIT license:
 #
-#  Copyright (c) 2007 Daniel Gollub <dgollub@suse.de>
-#  Copyright (c) 2007 Bjoern Ricks  <b.ricks@fh-osnabrueck.de>
+# Permission is  hereby granted,  free of charge,  to any  person obtaining
+# a  copy  of  this  software   and  associated  documentation  files  (the
+# "Software"),  to  deal in  the  Software  without restriction,  including
+# without  limitation the  rights  to use,  copy,  modify, merge,  publish,
+# distribute, sublicense, and/or sell copies of the Software, and to permit
+# persons  to whom  the Software  is  furnished to  do so,  subject to  the
+# following conditions:
 #
-#  Redistribution and use is allowed according to the terms of the New
-#  BSD license.
-#  For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# The above copyright  notice and this permission notice  shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE  SOFTWARE  IS  PROVIDED  "AS  IS",  WITHOUT  WARRANTY  OF  ANY  KIND,
+# EXPRESS  OR IMPLIED,  INCLUDING  BUT  NOT LIMITED  TO  THE WARRANTIES  OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+# NO EVENT SHALL THE AUTHORS OR  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+# DAMAGES OR  OTHER LIABILITY, WHETHER  IN AN  ACTION OF CONTRACT,  TORT OR
+# OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+# USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+IF(UNIX AND NOT APPLE)
 
 INCLUDE( FindPkgConfig )
 
@@ -55,3 +68,4 @@ ENDIF( NOT CHECK_FOUND )
 # Hide advanced variables from CMake GUIs
 MARK_AS_ADVANCED( CHECK_INCLUDE_DIR CHECK_LIBRARIES )
 
+ENDIF(UNIX AND NOT APPLE)
