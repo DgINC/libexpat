@@ -160,7 +160,7 @@ Doxyfile
 *.kdevses
 .*kate-swp
 build/
-.kdev4/
+.kdev4
 
 ###########################################################################
 #                   Git ignoring list for MS Visual Studio                #
