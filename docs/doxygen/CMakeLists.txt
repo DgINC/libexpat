@@ -104,4 +104,3 @@ if(DOXYGEN_FOUND)
     COMPONENT "docs"
     )
 endif(DOXYGEN_FOUND)
-
