@@ -1070,14 +1070,13 @@ typedef struct {
 XMLPARSEAPI(const XML_Feature *)
 XML_GetFeatureList(void);
 
-// !!!DEPRECATED!!!
-/* Expat follows the semantic versioning convention.
-   See http://semver.org.
+/* DEPRECATED
+// Expat follows the semantic versioning convention. See http://semver.org.
 
 #define XML_MAJOR_VERSION 2
 #define XML_MINOR_VERSION 2
 #define XML_MICRO_VERSION 6
-*/
+*/*
 
 #ifdef __cplusplus
 }

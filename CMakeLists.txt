@@ -30,12 +30,18 @@
 
 cmake_minimum_required(VERSION 3.10.3)
 
-project("libexpat" C)
+project("libexpat" VERSION "2.2.6")
 
-set(LIBEXPAT_VERSION_MAJOR "2")
-set(LIBEXPAT_VERSION_MINOR "2")
-set(LIBEXPAT_VERSION_PATCH "6")
-set(LIBEXPAT_VERSION ${LIBEXPAT_VERSION_MAJOR}.${LIBEXPAT_VERSION_MINOR}.${LIBEXPAT_VERSION_PATCH})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+include(CheckCSourceCompiles)
+include(CheckCSourceRuns)
+include(CheckFunctionExists)
+include(CheckIncludeFile)
+include(CheckIncludeFiles)
+include(CheckLibraryExists)
+include(CheckSymbolExists)
+include(CheckTypeSize)
 
 include(GNUInstallDirs)
 
@@ -109,9 +115,6 @@ if(BUILD_TOOLS AND (XML_UNICODE AND NOT XML_UNICODE_WCHAR_T))
     message(SEND_ERROR "The xmlwf tool can not be built with option XML_UNICODE_WCHAR_T=OFF and XML_UNICODE=ON. Either set XML_UNICODE_WCHAR_T=ON or BUILD_TOOLS=OFF.")
 endif()
 
-if(BUILD_TEST)
-    enable_testing()
-endif(BUILD_TEST)
 
 include(${CMAKE_CURRENT_LIST_DIR}/ConfigureChecks.cmake)
 
@@ -206,7 +209,10 @@ set(libdir "\${exec_prefix}/${CMAKE_INSTALL_LIBDIR}")
 set(includedir "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
 configure_file(libexpat.pc.in ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc @ONLY)
 
-configure_file("${PROJECT_SOURCE_DIR}/libexpat_config.h.in" "${PROJECT_BINARY_DIR}/libexpat_config.h")
+set(VERSION_MAJOR ${LIBEXPAT_VERSION_MAJOR})
+set(VERSION_MINOR ${LIBEXPAT_VERSION_MINOR})
+set(VERSION_PATCH ${LIBEXPAT_VERSION_PATCH})
+configure_file("${PROJECT_SOURCE_DIR}/libexpat_config.h.in" "${PROJECT_BINARY_DIR}/expat_config.h")
 
 expat_install(FILES src/libexpat/expat.h src/libexpat/expat_external.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 expat_install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
@@ -226,14 +232,8 @@ if(BUILD_TOOLS)
 endif()
 
 if(BUILD_TEST)
-    ## these are unittests that can be run on any platform
-    add_executable(runtests src/tests/runtests.c src/tests/chardata.c src/tests/structdata.c src/tests/minicheck.c src/tests/memcheck.c)
-    set_property(TARGET runtests PROPERTY RUNTIME_OUTPUT_DIRECTORY tests)
-    target_link_libraries(runtests libexpat)
+    add_subdirectory(tests)
+    enable_testing()
     add_test(runtests src/tests/runtests)
-
-    add_executable(runtestspp src/tests/runtestspp.cpp src/tests/chardata.c src/tests/structdata.c src/tests/minicheck.c src/tests/memcheck.c)
-    set_property(TARGET runtestspp PROPERTY RUNTIME_OUTPUT_DIRECTORY tests)
-    target_link_libraries(runtestspp libexpat)
     add_test(runtestspp src/tests/runtestspp)
 endif(BUILD_TEST)

@@ -89,7 +89,11 @@ endif(WORDS_BIGENDIAN)
 #
 # FIXME: Rename expat_config.h to libexpat_config.h
 #
-configure_file(libexpat_config.h.in "${CMAKE_CURRENT_BINARY_DIR}/expat_config.h")
+#set(VERSION_MAJOR ${LIBEXPAT_VERSION_MAJOR})
+#set(VERSION_MINOR ${LIBEXPAT_VERSION_MINOR})
+#set(VERSION_PATCH ${LIBEXPAT_VERSION_PATCH})
+#configure_file(libexpat_config.h.in "${CMAKE_CURRENT_BINARY_DIR}/expat_config.h")
+
 add_definitions(-DHAVE_EXPAT_CONFIG_H)
 
 check_c_compiler_flag("-fno-strict-aliasing" FLAG_NO_STRICT_ALIASING)
