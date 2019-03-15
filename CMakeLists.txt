@@ -29,10 +29,14 @@
 # USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 cmake_minimum_required(VERSION 3.10.3)
+cmake_policy(SET CMP0048 NEW)
 
 project("libexpat" VERSION "2.2.6")
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(CMAKE_BUILD_TYPE "Debug")
+
+SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 include(CheckCSourceCompiles)
 include(CheckCSourceRuns)
@@ -173,46 +177,44 @@ set(libexpat_SRCS
 )
 
 if(BUILD_SHARED)
-    set(_SHARED SHARED)
+    set(TYPELIB SHARED)
     if(WIN32)
-        set(libexpat_SRCS ${libexpat_SRCS} tools/platform/win/libexpat.def)
+        set(libexpat_SRCS ${libexpat_SRCS} platform/win/libexpat.def)
+        set(libexpat_SRCS ${libexpat_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/libexpat.rc)
     endif(WIN32)
 else(BUILD_SHARED)
-    set(_SHARED STATIC)
+    set(TYPELIB STATIC)
     if(WIN32)
         add_definitions(-DXML_STATIC)
     endif(WIN32)
 endif(BUILD_SHARED)
 
-add_library(libexpat ${_SHARED} ${libexpat_SRCS})
+add_library(libexpat ${TYPELIB} ${libexpat_SRCS})
 
-
-if(NOT WIN32)
+if(UNIX AND NOT APPLE)
     set_property(TARGET libexpat PROPERTY VERSION ${LIBEXPAT_VERSION})
     set_property(TARGET libexpat PROPERTY SOVERSION ${LIBEXPAT_VERSION_MAJOR})
     set_property(TARGET libexpat PROPERTY NO_SONAME ${NO_SONAME})
-endif(NOT WIN32)
 
-macro(expat_install)
-    if(INSTALL)
-        install(${ARGN})
-    endif()
-endmacro()
-
-expat_install(TARGETS libexpat RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-                      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-                      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
-set(prefix ${CMAKE_INSTALL_PREFIX})
-set(exec_prefix "\${prefix}")
-set(libdir "\${exec_prefix}/${CMAKE_INSTALL_LIBDIR}")
-set(includedir "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
-configure_file(libexpat.pc.in ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc @ONLY)
+    set(prefix ${CMAKE_INSTALL_PREFIX})
+    set(exec_prefix "\${prefix}")
+    set(libdir "\${exec_prefix}/${CMAKE_INSTALL_LIBDIR}")
+    set(includedir "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
+    
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/platform/nix/libexpat.pc.in ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc @ONLY)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+elseif(WIN32)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/platform/win/libexpat.rc.in ${CMAKE_CURRENT_BINARY_DIR}/libexpat.rc @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/platform/win/resource.h ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+endif(UNIX AND NOT APPLE)
 
 configure_file("${CMAKE_MODULE_PATH}/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
 
-expat_install(FILES src/libexpat/expat.h src/libexpat/expat_external.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-expat_install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libexpat.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+install(FILES src/libexpat/expat.h src/libexpat/expat_external.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(TARGETS libexpat RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+                      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+                      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 if(BUILD_TOOLS)
     set(XMLWF_SRCS
@@ -225,7 +227,7 @@ if(BUILD_TOOLS)
     add_executable(xmlwf ${XMLWF_SRCS})
     set_property(TARGET xmlwf PROPERTY RUNTIME_OUTPUT_DIRECTORY xmlwf)
     target_link_libraries(xmlwf libexpat)
-    expat_install(TARGETS xmlwf DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(TARGETS xmlwf DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
 if(BUILD_TEST)
